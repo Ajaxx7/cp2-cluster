@@ -1,35 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastapi-deployment
-  labels:
-    app: fastapi-deployment
+  name: cp2-cluster
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: fastapi-deployment
+      app: cp2-cluster
   template:
     metadata:
       labels:
-        app: fastapi-deployment
+        app: cp2-cluster
     spec:
       containers:
-      - name: fastapi-deployment
-        image: nginx:1.14.2
+      - name: cp2-cluster
+        image: localhost:32000/primenum:v1
         ports:
         - containerPort: 80
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: fastapi-lb
-spec:
-  type: LoadBalancer
-  selector:
-    app: fastapi-deployment
-  ports:
-    - protocol: TCP
-      port: 8000
-      targetPort: 80
